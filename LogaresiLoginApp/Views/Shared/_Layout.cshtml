@@ -1,0 +1,111 @@
+﻿@using Microsoft.AspNetCore.Http
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - Logaresi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <style>
+        body {
+            overflow-x: hidden;
+        }
+
+        .sidebar {
+            width: 56px;
+            background: #fff;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+        }
+
+            .sidebar .nav-link {
+                color: #333;
+                padding: 0.75rem;
+                text-align: center;
+            }
+
+        .topbar {
+            top:0;
+            height: 56px;
+            background: #a00;
+            color: #fff;
+            padding: 0 1rem;
+            position: fixed;
+            left: 56px;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: end;
+        }
+
+
+        .content {
+            margin-top: 56px;
+            margin-left: 56px;
+            padding: 1rem;
+        }
+    </style>
+</head>
+
+<!-- Modal de aviso de expiración inminente -->
+<div class="modal fade" id="sessionWarningModal" tabindex="-1" aria-labelledby="sessionWarningLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="sessionWarningLabel">Su sesión está a punto de expirar</h5>
+            </div>
+            <div class="modal-body">
+                Por seguridad, su sesión expirará en <span id="countdown">45</span> segundos. Para continuar, seleccione <strong>Extender sesión</strong>.
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="extendSessionBtn" class="btn btn-primary">Extender sesión</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/session-monitor.js"></script>
+@RenderSection("Scripts", required: false)
+
+<body>
+    <!-- Menú lateral -->
+    <nav class="sidebar d-flex flex-column align-items-center">
+        <button class="btn btn-link p-2"><i class="bi bi-list"></i></button>
+        <a class="nav-link" asp-controller="User" asp-action="Perfil"><i class="bi bi-house"></i></a>
+        <a class="nav-link" href="#"><i class="bi bi-book"></i></a>
+        <a class="nav-link" href="#"><i class="bi bi-search"></i></a>
+    </nav>
+
+    <!-- Barra superior -->
+    <header class="topbar">
+        <a class="text-white me-3" href="#"><i class="bi bi-question-circle"></i></a>
+        <a class="text-white position-relative me-4" href="#">
+            <i class="bi bi-bell"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">9+</span>
+        </a>
+        <div class="dropdown">
+            <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="userDropdown"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle fs-4"></i>
+                <span class="ms-2">@ViewContext.HttpContext.Session.GetString("NombreUsuario")</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                <li><a class="dropdown-item" asp-controller="Account" asp-action="Logout">Cerrar sesión</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="content">
+        @RenderBody()
+    </main>
+
+    @* <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> *@
+    @* @RenderSection("Scripts", required: false) *@
+</body>
+</html>
+

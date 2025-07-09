@@ -1,0 +1,91 @@
+@model LogaresiLoginApp.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Iniciar Sesión";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-4">
+        <div class="card shadow-lg border-0 rounded-3">
+            <div class="card-body p-4">
+                <h4 class="mb-3 text-center">Iniciar Sesión</h4>
+
+                <form asp-action="Login" method="post" novalidate>
+                    <!-- Botones DNI | CE -->
+                    <div class="mb-3 text-center">
+                        <div class="btn-group" role="group">
+                            <input type="radio" class="btn-check" name="TipoDocumento" id="DNI" value="DNI" checked>
+                            <label class="btn btn-outline-secondary" for="DNI">DNI</label>
+
+                            <input type="radio" class="btn-check" name="TipoDocumento" id="CE" value="CE">
+                            <label class="btn btn-outline-secondary" for="CE">CE</label>
+                        </div>
+                    </div>
+
+                    <!-- Usuario -->
+                    <div class="mb-3">
+                        <label for="Usuario" class="form-label">Número de documento</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                            <input asp-for="Usuario"
+                                   id="Usuario"
+                                   name="Usuario"
+                                   class="form-control"
+                                   placeholder="Número de documento"
+                                   pattern="[0-9]{8,20}"
+                                   maxlength="20"
+                                   minlength="8"
+                                   required
+                                   title="Debe ingresar 8 dígitos para DNI o 20 dígitos para CE" />
+
+                        </div>
+                        <span class="text-danger">@ViewBag.UsuarioError</span>
+                    </div>
+
+                    <!-- Contraseña -->
+                    <div class="mb-1">
+                        <label for="Password" class="form-label">Contraseña</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                            <input asp-for="Password" id="Password" name="Password" type="password" class="form-control" placeholder="Contraseña" required />
+                        </div>
+                        <span class="text-danger">@ViewBag.PasswordError</span>
+                    </div>
+
+                    <!-- ¿Olvidó su contraseña? -->
+                    <div class="mb-3 text-end">
+                        <a href="#" class="text-primary" style="text-decoration: none;">¿Olvidó su contraseña?</a>
+                    </div>
+
+                    <!-- Botón ingresar -->
+                    <div class="d-grid mb-4">
+                        <button type="submit" class="btn btn-primary">Ingresar</button>
+                    </div>
+                </form>
+
+                <!-- Soporte -->
+                <div class="text-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3208/3208710.png" width="40" alt="Soporte" class="mb-2" />
+                    <p class="mb-0">
+                        ¿Necesita ayuda? <span class="text-primary">(contacte con el área de soporte)</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.querySelector('form').addEventListener('submit', function (e) {
+            const tipo = document.querySelector('input[name="TipoDocumento"]:checked').value;
+            const usuario = document.querySelector('input[name="Usuario"]').value;
+
+            if ((tipo === 'DNI' && usuario.length !== 8) || (tipo === 'CE' && usuario.length !== 20)) {
+                e.preventDefault();
+                alert(tipo === 'DNI'
+                    ? 'El DNI debe tener exactamente 8 dígitos.'
+                    : 'El CE debe tener exactamente 20 dígitos.');
+            }
+        });
+    </script>
+}

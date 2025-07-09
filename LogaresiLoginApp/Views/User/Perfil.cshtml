@@ -1,0 +1,151 @@
+@model LogaresiLoginApp.Models.User
+
+@{
+    ViewData["Title"] = "Perfil de usuario";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="h4">Perfil de usuario</h2>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <!-- Cabecera con foto, nombre y estado -->
+            <div class="d-flex align-items-center mb-4">
+                <div class="me-3">
+                    <img src="~/images/avatar.png"
+                         class="rounded-circle"
+                         style="width:80px; height:80px;"
+                         alt="Avatar" />
+                </div>
+                <div>
+                    <h5 class="mb-1">@Model.NombreCompleto</h5>
+                    <span class="badge bg-success">Activo</span>
+                    <div class="text-muted small">
+                        Administrador de Recursos<br />
+                        011 Ministerio de Salud
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pestañas -->
+            <ul class="nav nav-tabs" id="perfilTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="info-basica-tab" data-bs-toggle="tab"
+                            data-bs-target="#info-basica" type="button" role="tab"
+                            aria-controls="info-basica" aria-selected="true">
+                        Información básica
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="responsabilidades-tab" data-bs-toggle="tab"
+                            data-bs-target="#responsabilidades" type="button" role="tab"
+                            aria-controls="responsabilidades" aria-selected="false">
+                        Responsabilidades
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="historial-tab" data-bs-toggle="tab"
+                            data-bs-target="#historial" type="button" role="tab"
+                            aria-controls="historial" aria-selected="false">
+                        Historial de responsabilidades
+                    </button>
+                </li>
+            </ul>
+
+            <div class="tab-content pt-3" id="perfilTabsContent">
+                <!-- Información básica -->
+                <div class="tab-pane fade show active" id="info-basica" role="tabpanel"
+                     aria-labelledby="info-basica-tab">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Nombres</label>
+                            <input type="text" class="form-control" value="@Model.Nombres" disabled />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Primer Apellido</label>
+                            <input type="text" class="form-control" value="@Model.ApellidoPaterno" disabled />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Segundo Apellido</label>
+                            <input type="text" class="form-control" value="@Model.ApellidoMaterno" disabled />
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Tipo de Documento de Identidad</label>
+                            <input type="text" class="form-control" value="@Model.TipoDocumento" disabled />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">N° de Documento de Identidad</label>
+                            <input type="text" class="form-control" value="@Model.NumeroDocumento" disabled />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Fecha de nacimiento</label>
+                            <input type="text" class="form-control"
+                                   value="@Model.FechaNacimiento.ToString("dd / MM / yyyy")" disabled />
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Nacionalidad</label>
+                            <input type="text" class="form-control" value="@Model.Nacionalidad" disabled />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Sexo</label>
+                            <input type="text" class="form-control" value="@Model.Sexo" disabled />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Correo electrónico principal</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" value="@Model.EmailPrincipal" disabled />
+                                <button class="btn btn-outline-secondary" type="button">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Correo electrónico secundario <small class="text-muted">(Opcional)</small></label>
+                            <input type="text" class="form-control" value="@Model.EmailSecundario" disabled />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Teléfono Móvil</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" value="@Model.TelefonoMovil" disabled />
+                                <button class="btn btn-outline-secondary" type="button">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Teléfono secundario <small class="text-muted">(Opcional)</small></label>
+                            <input type="text" class="form-control" value="@Model.TelefonoSecundario" disabled />
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Tipo de Contratación</label>
+                            <input type="text" class="form-control" value="@Model.TipoContratacion" disabled />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Fecha de contratación</label>
+                            <input type="text" class="form-control"
+                                   value="@Model.FechaContratacion.ToString("dd / MM / yyyy")" disabled />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Responsabilidades (vacío por ahora) -->
+                <div class="tab-pane fade" id="responsabilidades" role="tabpanel"
+                     aria-labelledby="responsabilidades-tab">
+                    <p class="text-muted">Sin responsabilidades asignadas.</p>
+                </div>
+
+                <!-- Historial de responsabilidades (vacío por ahora) -->
+                <div class="tab-pane fade" id="historial" role="tabpanel"
+                     aria-labelledby="historial-tab">
+                    <p class="text-muted">Sin historial disponible.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
